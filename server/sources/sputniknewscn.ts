@@ -1,8 +1,9 @@
 import * as cheerio from "cheerio"
 import type { NewsItem } from "@shared/types"
+import { proxyAgent } from "#/utils/fetch"
 
 export default defineSource(async () => {
-  const response: any = await myFetch("https://sputniknews.cn/services/widget/lenta/")
+  const response: any = await myFetch("https://sputniknews.cn/services/widget/lenta/", { dispatcher: proxyAgent })
   const $ = cheerio.load(response)
   const $items = $(".lenta__item")
   const news: NewsItem[] = []

@@ -1,9 +1,10 @@
 import * as cheerio from "cheerio"
 import type { NewsItem } from "@shared/types"
+import { proxyAgent } from "#/utils/fetch"
 
 export default defineSource(async () => {
   const baseURL = "https://www.producthunt.com/"
-  const html: any = await myFetch(baseURL)
+  const html: any = await myFetch(baseURL, { dispatcher: proxyAgent })
   const $ = cheerio.load(html)
   const $main = $("[data-test=homepage-section-0] [data-test^=post-item]")
   const news: NewsItem[] = []

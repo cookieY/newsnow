@@ -1,9 +1,10 @@
 import * as cheerio from "cheerio"
 import type { NewsItem } from "@shared/types"
+import { proxyAgent } from "#/utils/fetch"
 
 const trending = defineSource(async () => {
   const baseURL = "https://github.com"
-  const html: any = await myFetch("https://github.com/trending?spoken_language_code=")
+  const html: any = await myFetch("https://github.com/trending?spoken_language_code=", { dispatcher: proxyAgent })
   const $ = cheerio.load(html)
   const $main = $("main .Box div[data-hpc] > article")
   const news: NewsItem[] = []

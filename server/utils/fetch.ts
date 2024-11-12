@@ -1,5 +1,6 @@
+import process from "node:process"
 import { $fetch } from "ofetch"
-import "global-agent/bootstrap"
+import { ProxyAgent } from "undici"
 
 export const myFetch = $fetch.create({
   headers: {
@@ -8,3 +9,5 @@ export const myFetch = $fetch.create({
   timeout: 10000,
   retry: 3,
 })
+
+export const proxyAgent = new ProxyAgent(process.env.AGENT as string)

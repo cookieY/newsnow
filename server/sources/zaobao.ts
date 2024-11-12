@@ -2,10 +2,12 @@ import { Buffer } from "node:buffer"
 import * as cheerio from "cheerio"
 import iconv from "iconv-lite"
 import type { NewsItem } from "@shared/types"
+import { proxyAgent } from "#/utils/fetch"
 
 export default defineSource(async () => {
   const response: ArrayBuffer = await myFetch("https://www.kzaobao.com/top.html", {
     responseType: "arrayBuffer",
+    dispatcher: proxyAgent,
   })
   const base = "https://www.kzaobao.com"
   const utf8String = iconv.decode(Buffer.from(response), "gb2312")

@@ -1,4 +1,5 @@
 import { $fetch } from "ofetch"
+import "global-agent/bootstrap"
 
 export const myFetch = $fetch.create({
   headers: {
